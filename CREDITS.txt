@@ -1,0 +1,20 @@
+crossemu.app
+  Fourgees   - Branding Images
+  SpiceyWolf - App Development
+
+crossemu.sdk
+  SpiceyWolf - crossemu.sdk primary development
+  Wedarobi   - crossemu.sdk.n64 memory optimizations and minor bug fixes
+  MasterG    - crossemu.sdk.n64 GameID enumerator
+
+crossemu.gdk
+  X
+
+crossemu.rom_edit
+  SpiceyWolf - Core Development
+  ZeldaBoy14 - Documentation and On-Demand researcher for Universal Render Pipeline (URP/F3D-Ex-Ex2)
+  Six380     - Support for some F3D-Ex-Ex2 drawing code translation
+
+discord.rpc
+  SpiceyWolf  - Developed the godot plugin
+  Javarooster - Adding more game images

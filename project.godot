@@ -1,0 +1,60 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Cross-Emulator"
+config/description="A multi-emulator front-end and modding software."
+run/main_scene="res://scenes/screens/Window.tscn"
+config/features=PackedStringArray("4.0", "C#", "Mobile")
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+boot_splash/image="res://assets/images/system/splash.png"
+config/icon="res://assets/images/system/icon.png"
+config/windows_native_icon="res://assets/images/system/icon.ico"
+boot_splash/minimum_display_time=500
+
+[audio]
+
+buses/default_bus_layout="res://resources/audio_layout.tres"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/transparent=true
+window/per_pixel_transparency/allowed=true
+
+[dotnet]
+
+project/assembly_name="Cross-Emulator"
+
+[editor]
+
+script/templates_search_path="res://scripts/templates"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/project_setup/plugin.cfg", "res://addons/network/plugin.cfg")
+
+[gui]
+
+theme/custom="res://resources/themes/default.tres"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+viewport/transparent_background=true
+2d/snap/snap_2d_transforms_to_pixel=true
+environment/defaults/default_environment="res://resources/environment.tres"
+
+[xr]
+
+openxr/default_action_map="res://resources/openxr/action_map.tres"

@@ -1,0 +1,49 @@
+<Project Sdk="Godot.NET.Sdk/4.0.0">
+
+  <PropertyGroup>
+    <RootNamespace>CrossEmulator</RootNamespace>
+
+    <TargetFramework>net7.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SelfContained>true</SelfContained>
+    <Platforms>AnyCPU</Platforms>
+    <Nullable>enable</Nullable>
+    <DebugType>embedded</DebugType>
+    <ExcludeAssets>runtime</ExcludeAssets>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ExportType Condition="'$(Configuration)'=='Debug' and '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))'=='true'">linux</ExportType>
+    <ExportType Condition="'$(Configuration)'=='Debug' and '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))'=='true'">macos</ExportType>
+    <ExportType Condition="'$(Configuration)'=='Debug' and '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))'=='true'">win</ExportType>
+    <ExportType Condition="'$(Configuration)'=='Debug' and '$(PROCESSOR_ARCHITECTURE)'!='AMD64' and '$(ExportType)'=='win'">win32</ExportType>
+    <ExportType Condition="'$(Configuration)'=='Debug' and '$(PROCESSOR_ARCHITECTURE)'=='AMD64' and '$(ExportType)'=='win'">win64</ExportType>
+
+    <ExportType Condition="('$(Configuration)'=='ExportDebug' or '$(Configuration)'=='ExportRelease') and '$(RuntimeIdentifier)'=='linux-x64'">linux</ExportType>
+    <ExportType Condition="('$(Configuration)'=='ExportDebug' or '$(Configuration)'=='ExportRelease') and '$(RuntimeIdentifier)'=='osx-x64'">macos</ExportType>
+    <ExportType Condition="('$(Configuration)'=='ExportDebug' or '$(Configuration)'=='ExportRelease') and '$(RuntimeIdentifier)'=='win-x86'">win32</ExportType>
+    <ExportType Condition="('$(Configuration)'=='ExportDebug' or '$(Configuration)'=='ExportRelease') and '$(RuntimeIdentifier)'=='win-x64'">win64</ExportType>
+
+    <DefineConstants Condition="'$(ExportType)'=='linux'">$(DefineConstants);LINUX;POSIX;X64</DefineConstants>
+    <DefineConstants Condition="'$(ExportType)'=='macos'">$(DefineConstants);MACOS;POSIX;X64</DefineConstants>
+    <DefineConstants Condition="'$(ExportType)'=='win32'">$(DefineConstants);WINDOWS;WIN32;X86</DefineConstants>
+    <DefineConstants Condition="'$(ExportType)'=='win64'">$(DefineConstants);WINDOWS;WIN64;X64</DefineConstants>
+
+    <CrossEmuSdkPath>app_userdata/Cross-Emulator/crossemu-sdk/$(ExportType)/crossemu-sdk-dotnet.dll</CrossEmuSdkPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Condition="'$(ExportType)'=='linux'" Include="$(HOME)/.local/share/godot/$(CrossEmuSdkPath)" />
+    <Reference Condition="'$(ExportType)'=='macos'" Include="$(HOME)/Library/Application Support/Godot/$(CrossEmuSdkPath)" />
+    <Reference Condition="'$(ExportType)'=='win32'" Include="$(AppData)/Roaming/Godot/$(CrossEmuSdkPath)" />
+    <Reference Condition="'$(ExportType)'=='win64'" Include="$(AppData)/Roaming/Godot/$(CrossEmuSdkPath)" />
+
+    <PackageReference Include="Asfw" Version="0.10.6" />
+
+    <None Condition="'$(ExportType)'=='linux'" Include="./extensions/libs/linux/**" CopyToOutputDirectory="PreserveNewest" TargetPath="./%(Filename)%(Extension)" />
+    <None Condition="'$(ExportType)'=='macos'" Include="./extensions/libs/macos/**" CopyToOutputDirectory="PreserveNewest" TargetPath="./%(Filename)%(Extension)" />
+    <None Condition="'$(ExportType)'=='win32'" Include="./extensions/libs/win32/**" CopyToOutputDirectory="PreserveNewest" TargetPath="./%(Filename)%(Extension)" />
+    <None Condition="'$(ExportType)'=='win64'" Include="./extensions/libs/win64/**" CopyToOutputDirectory="PreserveNewest" TargetPath="./%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

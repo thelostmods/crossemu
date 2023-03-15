@@ -1,0 +1,10 @@
+**/.export/
+**/.godot/
+**/.idea/
+**/.vscode/
+**/.vs/
+**/obj/
+
+*.o
+*.os
+*.obj

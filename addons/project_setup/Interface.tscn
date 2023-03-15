@@ -1,0 +1,142 @@
+[gd_scene load_steps=2 format=3 uid="uid://csn0tn5c7beg"]
+
+[ext_resource type="Script" path="res://addons/project_setup/Interface.gd" id="1_0mnya"]
+
+[node name="Setup" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0mnya")
+
+[node name="Window Size" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Window Size"]
+layout_mode = 2
+text = "Window Size"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Window Size"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="640x480" type="Button" parent="Window Size/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VGA"
+
+[node name="800x600" type="Button" parent="Window Size/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CRT"
+
+[node name="1280x720" type="Button" parent="Window Size/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Universal
+"
+
+[node name="1680x1050" type="Button" parent="Window Size/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wide Screen"
+
+[node name="1920x1080" type="Button" parent="Window Size/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Desktop
+"
+
+[node name="Separator 1" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="Texture" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Texture"]
+layout_mode = 2
+text = "Texture Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Texture"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Blur" type="Button" parent="Texture/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Blur"
+
+[node name="Unblur" type="Button" parent="Texture/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Unblur"
+
+[node name="Separator 2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="Pixel" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Pixel"]
+layout_mode = 2
+text = "Pixel Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Pixel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Snap" type="Button" parent="Pixel/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Snap"
+
+[node name="Unsnap" type="Button" parent="Pixel/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Unsnap"
+
+[node name="Separator 3" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="XR" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="XR"]
+layout_mode = 2
+text = "XR (Virtual Reality)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="XR"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Enable" type="Button" parent="XR/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Enable
+"
+
+[node name="Disable" type="Button" parent="XR/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Disable"
+
+[connection signal="pressed" from="Window Size/Buttons/640x480" to="." method="_on_vga_pressed"]
+[connection signal="pressed" from="Window Size/Buttons/800x600" to="." method="_on_crt_pressed"]
+[connection signal="pressed" from="Window Size/Buttons/1280x720" to="." method="_on_universal_pressed"]
+[connection signal="pressed" from="Window Size/Buttons/1680x1050" to="." method="_on_wide_screen_pressed"]
+[connection signal="pressed" from="Window Size/Buttons/1920x1080" to="." method="_on_desktop_pressed"]
+[connection signal="pressed" from="Texture/Buttons/Blur" to="." method="_on_2d_blur_pressed"]
+[connection signal="pressed" from="Texture/Buttons/Unblur" to="." method="_on_2d_unblur_pressed"]
+[connection signal="pressed" from="Pixel/Buttons/Snap" to="." method="_on_2d_snap_pixels_pressed"]
+[connection signal="pressed" from="Pixel/Buttons/Unsnap" to="." method="_on_2d_unsnap_pixels_pressed"]
+[connection signal="pressed" from="XR/Buttons/Enable" to="." method="_on_xr_enable_pressed"]
+[connection signal="pressed" from="XR/Buttons/Disable" to="." method="_on_xr_disable_pressed"]
