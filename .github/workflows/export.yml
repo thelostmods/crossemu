@@ -1,0 +1,78 @@
+name: Export Project Builds
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  upload-binaries:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Initialize repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Set up Godot
+        uses: firebelley/godot-export@v5.0.0
+        with:
+          version: '4.0'
+
+      - name: Build project
+        run: |
+          godot --export "Linux App Image"
+          # godot --export "Mac OSX"
+          # godot --export "Windows x86"
+          godot --export "Windows x64"
+      
+      - name: Compress packages
+        run: |
+          cd ".export"
+
+          # create linux package
+          mv "linux" "crossemu"
+          tar -czf "crossemu_linux.tar.gz" "crossemu"
+          rm -r "crossemu"
+
+          # create macos package
+          # mv "macos" "crossemu"
+          # zip -r "crossemu_macos.zip" "crossemu"
+          # rm -r "crossemu"
+
+          # create win32 package
+          # mv "win32" "crossemu"
+          # zip -r "crossemu_win32.zip" "crossemu"
+          # rm -r "crossemu"
+
+          # create win64 package
+          mv "win64" "crossemu"
+          zip -r "crossemu_win64.zip" "crossemu"
+          rm -r "crossemu"
+
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.3.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload Linux Package
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./.export/crossemu_linux.tar.gz
+          asset_name: crossemu-sdk.tar.gz
+          asset_content_type: tar-ball
+
+      - name: Upload Win64 Package
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./.export/crossemu_win64.zip
+          asset_name: crossemu_win64.zip
+          asset_content_type: application/zip
